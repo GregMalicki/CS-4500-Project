@@ -16,7 +16,17 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="#">Task Manager <span class="sr-only">(current)</span></a>
-
+              <form action="" method="POST"> {% csrf_token %}
+                  <div class="float-left" align="left">
+                    {{ form.new_name }}
+                  </div>
+                  <div class="float-left" align="left">
+                    {{ form.new_rate }}
+                  </div>
+                  <div class="float-left" align="right">
+                    <button type="submit" name="submit" class="btn btn-warning ml-3 mr-2 mb-4">Search</button>
+                  </div>
+              </form>
         </div>
     </div>
 </nav>

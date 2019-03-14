@@ -1,17 +1,49 @@
 {% extends 'application.html' %}
 {% block content %}
-<div class="container-fixed">
-    <h2> Cardiology Patient Manager </h2>
-    <form action="/login/" method="POST"> {% csrf_token %}
-        <div class="form-group">
-            <label for="loginUsername"> Username</label>
-            {{ form.username }}
+<!-- Div holding the entire page -->
+<div class="wrapper">
+
+    <div id="content">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col" id="patients-col">
+                    <div class="container">
+                      {% if not tasks %}
+                        <div class="alert alert-danger" role="alert" style="margin-top:20px">
+                            <strong>Error: </strong>No tasks found.
+                        </div>
+                      {% else %}
+                      <table class="table table-hover border">
+                        <thead>
+                          <tr>
+                            <th>Task Name</th>
+                            <th>Required In</th>
+                            <th>Frequency</th>
+                          </tr>
+                        </thead>
+                        <tbody style="overflow-y: scroll; height: 25px">
+                        {% for task in tasks %}
+                          <tr>
+                            <td>{{task.name}}</td>
+                            <td>time remaining</td>
+                            <td>{{task.frequency}}</td>
+                            <td>
+                                <a class="text-primary" href="/patients/profile/?id={{task.id}}">Done</a>
+                            </td>
+                            <td>
+                                <a class="text-primary" href="/patients/profile/?id={{task.id}}">Delete</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="loginPassword"> Password</label>
-            {{ form.password }}
-        </div>
-        <button type="submit" class="btn btn-warning">Login</button>
-    </form>
+    </div>
 </div>
 {% endblock %}
