@@ -18,6 +18,6 @@ class NewTaskForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'id': 'newRate',
-                'placeholder': ''
+                'placeholder': 'Minutes'
             }
         ))
