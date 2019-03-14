@@ -27,10 +27,10 @@
                         {% for task in tasks %}
                           <tr>
                             <td>{{task.name}}</td>
-                            <td>time remaining</td>
+                            <td>{{task.time_remaining}}</td>
                             <td>{{task.frequency}}</td>
                             <td>
-                                <a class="text-primary" href="/patients/profile/?id={{task.id}}">Done</a>
+                                <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
                             </td>
                             <td>
                                 <a class="text-primary" href="/delete/?id={{task.id}}">Delete</a>

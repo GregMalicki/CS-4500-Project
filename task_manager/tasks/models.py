@@ -9,8 +9,9 @@ class Task(models.Model):
     frequency = models.IntegerField(default=45)
 
     def complete(self):
-        self.last_completed = timezone.now
+        self.last_completed = timezone.now()
+        self.save()
 
     def time_remaining(self):
         time = timezone.now() - self.last_completed
-        return divmod(time.total_seconds(), 60)[0]
+        return int(self.frequency - divmod(time.total_seconds(), 60)[0])
