@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from tasks.forms import NewTaskForm
 from tasks.models import Task
 
@@ -15,5 +15,13 @@ def home(request):
         return render(request, 'homepage.html', {'form': NewTaskForm(), 'tasks': Task.objects.all()})
 
 
-
+def delete(request):
+    if request.method == 'GET':
+        try:
+            # Get desired patient id from url
+            task = Task.objects.get(id=request.GET.get('id'))
+            task.delete()
+            return redirect('/')
+        except Task.DoesNotExist:
+            return redirect('/')
 
