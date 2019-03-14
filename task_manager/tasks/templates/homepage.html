@@ -8,11 +8,50 @@
         <div class="container">
 
             <div class="row">
-                <div class="col" id="patients-col">
+                <div class="col">
                     <div class="container">
-                      {% if not tasks %}
-                        <div class="alert alert-danger" role="alert" style="margin-top:20px">
-                            <strong>Error: </strong>No tasks found.
+                    <h2>Overdue Tasks</h2>
+                      {% if not overdue %}
+                        <div class="alert alert-success" role="alert" style="margin-top:20px">
+                            <strong>No Overdue Tasks!</strong> Keep up the good work.
+                        </div>
+                      {% else %}
+                      <table class="table table-hover border">
+                        <thead>
+                          <tr>
+                            <th>Task Name</th>
+                            <th>Minutes Past Due</th>
+                            <th>Frequency</th>
+                          </tr>
+                        </thead>
+                        <tbody style="overflow-y: scroll; height: 25px">
+                        {% for task in overdue %}
+                          <tr>
+                            <td>{{task.name}}</td>
+                            <td>{{task.time_remaining|stringformat:"+d"|slice:"1:"}}</td>
+                            <td>{{task.frequency}}</td>
+                            <td>
+                                <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
+                            </td>
+                            <td>
+                                <a class="text-primary" href="/delete/?id={{task.id}}">Delete</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+                    <div class="row">
+                <div class="col">
+                    <div class="container">
+                    <h2>Upcoming Tasks</h2>
+                      {% if not upcoming %}
+                        <div class="alert alert-info" role="alert" style="margin-top:20px">
+                            <strong>No Upcoming Tasks.</strong>
                         </div>
                       {% else %}
                       <table class="table table-hover border">
@@ -24,7 +63,45 @@
                           </tr>
                         </thead>
                         <tbody style="overflow-y: scroll; height: 25px">
-                        {% for task in tasks %}
+                        {% for task in upcoming %}
+                          <tr>
+                            <td>{{task.name}}</td>
+                            <td>{{task.time_remaining}}</td>
+                            <td>{{task.frequency}}</td>
+                            <td>
+                                <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
+                            </td>
+                            <td>
+                                <a class="text-primary" href="/delete/?id={{task.id}}">Delete</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="row">
+                <div class="col">
+                    <div class="container">
+                    <h2>Completed Tasks</h2>
+                      {% if not completed %}
+                        <div class="alert alert-info" role="alert" style="margin-top:20px">
+                            <strong>No Completed Tasks.</strong>
+                        </div>
+                      {% else %}
+                      <table class="table table-hover border">
+                        <thead>
+                          <tr>
+                            <th>Task Name</th>
+                            <th>Required In</th>
+                            <th>Frequency</th>
+                          </tr>
+                        </thead>
+                        <tbody style="overflow-y: scroll; height: 25px">
+                        {% for task in completed %}
                           <tr>
                             <td>{{task.name}}</td>
                             <td>{{task.time_remaining}}</td>

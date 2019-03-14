@@ -13,7 +13,17 @@ def home(request):
             return redirect('/')
         return redirect('/')
     if request.method == 'GET':
-        return render(request, 'homepage.html', {'form': NewTaskForm(), 'tasks': Task.objects.all()})
+        overdue = []
+        upcoming = []
+        completed = []
+        for task in Task.objects.all():
+            if task.time_remaining() >= 10:
+                completed.append(task)
+            elif task.time_remaining() < 0:
+                overdue.append(task)
+            else:
+                upcoming.append(task)
+        return render(request, 'homepage.html', {'form': NewTaskForm(), 'overdue': overdue, 'upcoming': upcoming, 'completed': completed})
 
 
 def delete(request):
