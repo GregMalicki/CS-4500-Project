@@ -2,14 +2,20 @@
 {% block content %}
 <!-- Div holding the entire page -->
 <div class="wrapper">
-
     <div id="content">
-
         <div class="container">
 
-            <div class="row">
+                <div class="container">
+                <div class="row">
                 <div class="col">
-                    <div class="container">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="container">
+                <div class="row">
+                <div class="col">
                     <h2>Overdue Tasks</h2>
                       {% if not overdue %}
                         <div class="alert alert-success" role="alert" style="margin-top:20px">
@@ -28,16 +34,8 @@
                         {% for task in overdue %}
                           <tr>
                             <td>{{task.name}}</td>
-                            {% if task.time_remaining == -1 %}
-                            <td>{{task.time_remaining|stringformat:"+d"|slice:"1:"}} minute</td>
-                            {% else %}
-                            <td>{{task.time_remaining|stringformat:"+d"|slice:"1:"}} minutes</td>
-                            {% endif %}
-                            {% if task.frequency == 1 %}
-                            <td>{{task.frequency}} minute</td>
-                            {% else %}
-                            <td>{{task.frequency}} minutes</td>
-                            {% endif %}
+                            <td>{{task.print_remaining}}</td>
+                            <td>{{task.print_frequency}}</td>
                             <td>
                                 <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
                             </td>
@@ -74,16 +72,8 @@
                         {% for task in upcoming %}
                           <tr>
                             <td>{{task.name}}</td>
-                            {% if task.time_remaining == 1 %}
-                            <td>{{task.time_remaining}} minute</td>
-                            {% else %}
-                            <td>{{task.time_remaining}} minutes</td>
-                            {% endif %}
-                            {% if task.frequency == 1 %}
-                            <td>{{task.frequency}} minute</td>
-                            {% else %}
-                            <td>{{task.frequency}} minutes</td>
-                            {% endif %}
+                            <td>{{task.print_remaining}}</td>
+                            <td>{{task.print_frequency}}</td>
                             <td>
                                 <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
                             </td>
@@ -120,16 +110,8 @@
                         {% for task in completed %}
                           <tr>
                             <td>{{task.name}}</td>
-                            {% if task.time_remaining == 1 %}
-                            <td>{{task.time_remaining}} minute</td>
-                            {% else %}
-                            <td>{{task.time_remaining}} minutes</td>
-                            {% endif %}
-                            {% if task.frequency == 1 %}
-                            <td>{{task.frequency}} minute</td>
-                            {% else %}
-                            <td>{{task.frequency}} minutes</td>
-                            {% endif %}
+                            <td>{{task.print_remaining}}</td>
+                            <td>{{task.print_frequency}}</td>
                             <td>
                                 <a class="text-primary" href="/update/?id={{task.id}}">Done</a>
                             </td>
@@ -146,5 +128,4 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
